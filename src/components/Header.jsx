@@ -16,10 +16,31 @@ import {
 export default function Header({
   onOpenSidebar,
   onAddTask,
+  activeNav = "tasks",
   currentUser = null,
   onLogout,
   onOpenLogin
 }) {
+  const navLabels = {
+    dashboard: "Application Overview",
+    focus: "Focus Notes",
+    analytics: "Analytics",
+    tasks: "Task Management",
+    planner: "AI Planner",
+    agents: "AI Agents",
+    team: "Team Space",
+    calendar: "Calendar",
+    automation: "Automation Hub",
+    integrations: "Integrations",
+    ops: "Platform Ops",
+    intelligence: "Data Intelligence",
+    security: "Security SOC",
+    lifecycle: "Product Lifecycle",
+    insights: "Intelligence",
+    admin: "Enterprise Admin",
+    financial: "Financial Intelligence"
+  };
+  const activeLabel = navLabels[activeNav] || "Task Management";
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
@@ -40,13 +61,11 @@ export default function Header({
         </button>
 
         <div className="header-greeting">
-          <div className="greeting-pill">
-            <Sparkles size={14} className="sparkle-icon" />
-            <span>Workspace</span>
-          </div>
-          <h1 className="header-title">
-            {currentUser ? `Welcome back, ${currentUser.name.split(" ")[0]}` : "Dashboard Overview"}
-          </h1>
+          <nav className="header-breadcrumb" aria-label="Breadcrumb">
+            <span>Application</span>
+            <span className="breadcrumb-separator" aria-hidden="true">/</span>
+            <strong>{activeLabel}</strong>
+          </nav>
         </div>
       </div>
 

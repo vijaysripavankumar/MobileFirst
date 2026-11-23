@@ -1,12 +1,20 @@
 import React from "react";
 import {
-  LayoutDashboard,
   CheckSquare,
   Sparkles,
-  BarChart3,
+  Bot,
+  Users,
+  CalendarDays,
+  Workflow,
+  Blocks,
+  Database,
+  ShieldCheck,
+  SlidersHorizontal,
+  BrainCircuit,
+  CircleDollarSign,
   Settings,
   X,
-  Target,
+  LayoutGrid,
   Flame,
   LogOut,
   LogIn
@@ -27,11 +35,20 @@ export default function Sidebar({
   onOpenLogin
 }) {
   const navItems = [
-    { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
     { id: "tasks", label: "My Tasks", icon: CheckSquare, badge: stats.total },
-    { id: "focus", label: "Focus Notes", icon: Sparkles },
-    { id: "analytics", label: "Analytics", icon: BarChart3 },
-    { id: "settings", label: "Settings", icon: Settings }
+    { id: "planner", label: "AI Planner", icon: Sparkles },
+    { id: "agents", label: "AI Agents", icon: Bot },
+    { id: "team", label: "Team Space", icon: Users },
+    { id: "calendar", label: "Calendar", icon: CalendarDays },
+    { id: "automation", label: "Automation Hub", icon: Workflow },
+    { id: "integrations", label: "Integrations", icon: Blocks },
+    { id: "ops", label: "Platform Ops", icon: Database },
+    { id: "intelligence", label: "Data Intelligence", icon: Database },
+    { id: "security", label: "Security SOC", icon: ShieldCheck },
+    { id: "lifecycle", label: "Product Lifecycle", icon: SlidersHorizontal },
+    { id: "insights", label: "Intelligence", icon: BrainCircuit },
+    { id: "admin", label: "Enterprise Admin", icon: Settings },
+    { id: "financial", label: "Financial Intelligence", icon: CircleDollarSign }
   ];
 
   return (
@@ -53,7 +70,7 @@ export default function Sidebar({
         <div className="sidebar-header">
           <div className="sidebar-brand">
             <div className="brand-logo" aria-hidden="true">
-              <Target size={22} className="brand-icon" />
+              <LayoutGrid size={22} className="brand-icon" />
             </div>
             <div className="brand-text">
               <span className="brand-name">FocusBoard</span>

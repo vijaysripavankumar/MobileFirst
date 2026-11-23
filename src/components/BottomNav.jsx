@@ -13,7 +13,7 @@ import {
  * Provides thumb-friendly quick access to key sections
  */
 export default function BottomNav({
-  activeNav = "dashboard",
+  activeNav = "tasks",
   setActiveNav,
   onAddTask,
   taskCount = 0

@@ -56,7 +56,7 @@
   --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
   /* Layout & Sizing */
-  --sidebar-width: 270px;
+  --sidebar-width: 252px;
   --header-height: 72px;
   --radius-sm: 6px;
   --radius-md: 10px;
@@ -167,6 +167,82 @@ input, textarea, select {
   display: flex;
   flex-direction: column;
   gap: 28px;
+}
+
+.module-page {
+  width: 100%;
+  min-height: 520px;
+}
+
+.module-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 24px;
+  padding: 28px;
+  border-radius: 14px;
+  color: #ffffff;
+  background: linear-gradient(135deg, #5964e8 0%, #7a59eb 100%);
+}
+
+.module-eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.78;
+}
+
+.module-page-header h1 {
+  margin-bottom: 6px;
+  font-size: 1.75rem;
+}
+
+.module-page-header p {
+  max-width: 620px;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.module-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.module-card {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 22px;
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+  transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  border-color: #c7d2fe;
+  box-shadow: 0 8px 18px rgba(79, 70, 229, 0.08);
+}
+
+.module-card-title {
+  color: #1e293b;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.module-card-action {
+  color: #5b50dc;
+  font-size: 0.82rem;
+  font-weight: 600;
 }
 
 /* ==========================================================================
@@ -475,6 +551,112 @@ input, textarea, select {
   backdrop-filter: blur(4px);
   z-index: 45;
   animation: fadeIn 200ms ease-out;
+}
+
+/* Light navigation style matching the FocusBoard workspace */
+.sidebar {
+  background: #ffffff;
+  color: #5e6b82;
+  border-right: 1px solid #e8edf4;
+}
+
+.sidebar-header {
+  border-bottom: 1px solid #eef1f6;
+}
+
+.brand-logo {
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  box-shadow: none;
+  border-radius: 8px;
+}
+
+.brand-name {
+  color: #172554;
+  font-size: 1.05rem;
+}
+
+.brand-tag {
+  display: none;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 14px 12px;
+  gap: 12px;
+}
+
+.nav-section-title {
+  color: #7e8ba3;
+  font-size: 0.68rem;
+  margin-bottom: 4px;
+  padding-left: 10px;
+}
+
+.nav-list {
+  gap: 2px;
+}
+
+.nav-link {
+  min-height: 40px;
+  padding: 9px 12px;
+  color: #536179;
+  gap: 11px;
+  border-radius: 8px;
+  font-size: 0.84rem;
+  font-weight: 500;
+}
+
+.nav-link:hover {
+  color: #343d4f;
+  background: #f7f8fb;
+}
+
+.nav-link--active {
+  color: #5b50dc;
+  background: #eef0ff;
+  box-shadow: none;
+}
+
+.nav-link--active:hover {
+  color: #5b50dc;
+  background: #e9ebff;
+}
+
+.nav-badge {
+  background: #e6e8ff;
+  color: #6257d9;
+  font-size: 0.72rem;
+  padding: 2px 7px;
+}
+
+.sidebar-productivity-card {
+  display: none;
+}
+
+.sidebar-footer {
+  background: #ffffff;
+  border-top: 1px solid #eef1f6;
+}
+
+.user-name {
+  color: #1e293b;
+}
+
+.header-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #747ea7;
+  font-size: 0.84rem;
+}
+
+.header-breadcrumb strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.breadcrumb-separator {
+  color: #c0c6d2;
 }
 
 /* ==========================================================================
@@ -1625,6 +1807,14 @@ input, textarea, select {
     --sidebar-width: 280px;
   }
 
+  .module-card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .module-page-header {
+    padding: 22px;
+  }
+
   .main-wrapper {
     margin-left: 0;
   }
@@ -1693,6 +1883,14 @@ input, textarea, select {
   .dashboard-content {
     padding: 16px 14px 40px 14px;
     gap: 18px;
+  }
+
+  .module-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .module-page-header {
+    flex-direction: column;
   }
 
   .app-header {
