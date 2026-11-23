@@ -2212,3 +2212,130 @@ input, textarea, select {
 .auth-guest-link:hover {
   color: #4f46e5;
 }
+
+
+/* ==========================================================================
+   Mobile Bottom Navigation Bar
+   Hidden on desktop (>768px), shown on tablet & mobile
+   ========================================================================== */
+
+.bottom-nav {
+  display: none; /* Hidden on desktop */
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #ffffff;
+  border-top: 1px solid #e2e8f0;
+  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+  padding: 6px 8px;
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
+}
+
+.bottom-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: var(--radius-md);
+  color: #94a3b8;
+  background: none;
+  border: none;
+  cursor: pointer;
+  min-height: 48px;
+  min-width: 48px;
+  transition: color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.bottom-nav-item:hover {
+  color: #64748b;
+}
+
+.bottom-nav-item--active {
+  color: var(--color-primary);
+}
+
+.bottom-nav-item--active .bottom-nav-label {
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* Floating Action Button in center */
+.bottom-nav-fab {
+  color: #ffffff;
+  position: relative;
+}
+
+.bottom-nav-fab-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.4);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.bottom-nav-fab:hover .bottom-nav-fab-circle,
+.bottom-nav-fab:focus-visible .bottom-nav-fab-circle {
+  transform: scale(1.08);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
+}
+
+.bottom-nav-fab:active .bottom-nav-fab-circle {
+  transform: scale(0.95);
+}
+
+/* Icon wrap + Badge */
+.bottom-nav-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bottom-nav-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #ffffff;
+  background-color: #ef4444;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Label text */
+.bottom-nav-label {
+  font-size: 0.65rem;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0.01em;
+}
+
+/* Show on mobile / tablet */
+@media (max-width: 768px) {
+  .bottom-nav {
+    display: flex;
+    align-items: center;
+  }
+
+  /* Add padding at the bottom of content so it doesn't hide behind the bar */
+  .dashboard-content {
+    padding-bottom: 80px !important;
+  }
+}

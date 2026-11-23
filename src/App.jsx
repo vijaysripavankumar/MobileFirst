@@ -8,6 +8,7 @@ import FilterTabs from "./components/FilterTabs";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
 import AuthView from "./components/AuthView";
+import BottomNav from "./components/BottomNav";
 import { SAMPLE_TASKS } from "./data/sampleTasks";
 import { DEFAULT_USER } from "./data/defaultUser";
 import useLocalStorage from "./hooks/useLocalStorage";
@@ -315,6 +316,14 @@ export default function App() {
           </section>
         </main>
       </div>
+
+      {/* Mobile Bottom Navigation Bar (visible ≤768px) */}
+      <BottomNav
+        activeNav={activeNav}
+        setActiveNav={setActiveNav}
+        onAddTask={handleOpenCreateModal}
+        taskCount={stats.total}
+      />
 
       {/* Auth Modal for Switching Accounts or Logging in from Guest */}
       {isAuthModalOpen && (
