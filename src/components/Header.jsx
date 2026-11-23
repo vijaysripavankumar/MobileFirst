@@ -1,11 +1,25 @@
 import React from "react";
-import { Menu, Plus, Calendar, Bell, Sparkles } from "lucide-react";
+import {
+  Menu,
+  Plus,
+  Calendar,
+  Bell,
+  Sparkles,
+  LogOut,
+  LogIn,
+  User
+} from "lucide-react";
 
 /**
- * Top header component with breadcrumbs, quick actions, and mobile toggle
+ * Top header component with breadcrumbs, user session controls, and quick actions
  */
-export default function Header({ onOpenSidebar, onAddTask }) {
-  // Current date formatted e.g. "Monday, Nov 23, 2026"
+export default function Header({
+  onOpenSidebar,
+  onAddTask,
+  currentUser = null,
+  onLogout,
+  onOpenLogin
+}) {
   const formattedDate = new Intl.DateTimeFormat("en-US", {
     weekday: "short",
     month: "short",
@@ -30,7 +44,9 @@ export default function Header({ onOpenSidebar, onAddTask }) {
             <Sparkles size={14} className="sparkle-icon" />
             <span>Workspace</span>
           </div>
-          <h1 className="header-title">Dashboard Overview</h1>
+          <h1 className="header-title">
+            {currentUser ? `Welcome back, ${currentUser.name.split(" ")[0]}` : "Dashboard Overview"}
+          </h1>
         </div>
       </div>
 
@@ -51,6 +67,34 @@ export default function Header({ onOpenSidebar, onAddTask }) {
           <Bell size={18} />
           <span className="notification-dot" />
         </button>
+
+        {/* User Session Profile & Log In / Out Button */}
+        {currentUser ? (
+          <div className="header-user-profile" title={`Logged in as ${currentUser.name} (${currentUser.email})`}>
+            <div className="header-user-avatar" aria-hidden="true">
+              <span>{currentUser.avatarInitials || "U"}</span>
+            </div>
+            <button
+              type="button"
+              className="header-logout-btn"
+              onClick={onLogout}
+              aria-label="Log Out of FocusBoard"
+              title="Log Out"
+            >
+              <LogOut size={16} aria-hidden="true" />
+              <span className="logout-text">Logout</span>
+            </button>
+          </div>
+        ) : (
+          <button
+            type="button"
+            className="btn btn--secondary header-signin-btn"
+            onClick={onOpenLogin}
+          >
+            <LogIn size={16} aria-hidden="true" />
+            <span>Sign In</span>
+          </button>
+        )}
 
         {/* Primary Action Button: Add Task */}
         <button

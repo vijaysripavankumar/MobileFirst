@@ -8,19 +8,23 @@ import {
   X,
   Target,
   Flame,
-  CheckCircle2
+  LogOut,
+  LogIn
 } from "lucide-react";
 
 /**
  * Sidebar navigation component
- * Supports desktop fixed sidebar and mobile slide-out drawer
+ * Supports desktop fixed sidebar, mobile slide-out drawer, and dynamic user profile/logout
  */
 export default function Sidebar({
   isOpen,
   onClose,
   activeNav = "dashboard",
   setActiveNav,
-  stats = { total: 0, completed: 0, percentage: 0 }
+  stats = { total: 0, completed: 0, percentage: 0 },
+  currentUser = null,
+  onLogout,
+  onOpenLogin
 }) {
   const navItems = [
     { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -108,7 +112,13 @@ export default function Sidebar({
           <p className="productivity-card-desc">
             {stats.completed} of {stats.total} tasks completed today.
           </p>
-          <div className="progress-bar-track" role="progressbar" aria-valuenow={stats.percentage} aria-valuemin="0" aria-valuemax="100">
+          <div
+            className="progress-bar-track"
+            role="progressbar"
+            aria-valuenow={stats.percentage}
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
             <div
               className="progress-bar-fill"
               style={{ width: `${stats.percentage}%` }}
@@ -117,16 +127,43 @@ export default function Sidebar({
           <span className="progress-percentage-label">{stats.percentage}% target reached</span>
         </div>
 
-        {/* User profile footer */}
+        {/* User profile footer with Login / Logout */}
         <div className="sidebar-footer">
-          <div className="user-avatar" aria-hidden="true">
-            <span>VK</span>
-            <span className="status-dot-online" title="Online" />
-          </div>
-          <div className="user-info">
-            <span className="user-name">Vijay Kumar</span>
-            <span className="user-role">Product Lead</span>
-          </div>
+          {currentUser ? (
+            <>
+              <div className="user-avatar" aria-hidden="true">
+                <span>{currentUser.avatarInitials || "U"}</span>
+                <span className="status-dot-online" title="Online" />
+              </div>
+              <div className="user-info">
+                <span className="user-name">{currentUser.name}</span>
+                <span className="user-role">{currentUser.role || "Member"}</span>
+              </div>
+              <button
+                type="button"
+                className="sidebar-logout-btn"
+                onClick={onLogout}
+                title="Log Out"
+                aria-label="Log Out of FocusBoard"
+              >
+                <LogOut size={16} />
+              </button>
+            </>
+          ) : (
+            <div className="sidebar-guest-box">
+              <div className="guest-info">
+                <span className="guest-label">Guest Preview</span>
+              </div>
+              <button
+                type="button"
+                className="sidebar-signin-btn"
+                onClick={onOpenLogin}
+              >
+                <LogIn size={15} />
+                <span>Sign In</span>
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </>

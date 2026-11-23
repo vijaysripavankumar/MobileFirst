@@ -7,7 +7,9 @@ import SearchBar from "./components/SearchBar";
 import FilterTabs from "./components/FilterTabs";
 import TaskList from "./components/TaskList";
 import TaskForm from "./components/TaskForm";
+import AuthView from "./components/AuthView";
 import { SAMPLE_TASKS } from "./data/sampleTasks";
+import { DEFAULT_USER } from "./data/defaultUser";
 import useLocalStorage from "./hooks/useLocalStorage";
 import {
   CheckSquare,
@@ -20,6 +22,14 @@ import {
 } from "lucide-react";
 
 export default function App() {
+  // Authentication session state (persisted in localStorage)
+  const [currentUser, setCurrentUser] = useLocalStorage(
+    "focusboard_auth_user",
+    DEFAULT_USER
+  );
+  const [isGuestMode, setIsGuestMode] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
   // Persistent tasks state via custom hook (seeds with SAMPLE_TASKS on first load only)
   const [tasks, setTasks] = useLocalStorage("focusboard_tasks_v1", SAMPLE_TASKS);
 
@@ -81,6 +91,23 @@ export default function App() {
     Boolean(searchQuery.trim()) ||
     activeStatus !== "all" ||
     activePriority !== "all";
+
+  // Auth Operations
+  const handleLogin = (user) => {
+    setCurrentUser(user);
+    setIsGuestMode(false);
+    setIsAuthModalOpen(false);
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setIsGuestMode(false);
+  };
+
+  const handleContinueAsGuest = () => {
+    setIsGuestMode(true);
+    setIsAuthModalOpen(false);
+  };
 
   // CRUD Operation: Create new task
   const handleCreateTask = (taskData) => {
@@ -153,6 +180,16 @@ export default function App() {
     setActivePriority("all");
   };
 
+  // If user is not logged in and hasn't chosen guest preview, show Auth view
+  if (!currentUser && !isGuestMode) {
+    return (
+      <AuthView
+        onLogin={handleLogin}
+        onContinueAsGuest={handleContinueAsGuest}
+      />
+    );
+  }
+
   return (
     <div className="app-layout">
       {/* Sidebar Navigation */}
@@ -162,6 +199,9 @@ export default function App() {
         activeNav={activeNav}
         setActiveNav={setActiveNav}
         stats={stats}
+        currentUser={currentUser}
+        onLogout={handleLogout}
+        onOpenLogin={() => setIsAuthModalOpen(true)}
       />
 
       {/* Main Workspace Area */}
@@ -169,6 +209,9 @@ export default function App() {
         <Header
           onOpenSidebar={() => setIsSidebarOpen(true)}
           onAddTask={handleOpenCreateModal}
+          currentUser={currentUser}
+          onLogout={handleLogout}
+          onOpenLogin={() => setIsAuthModalOpen(true)}
         />
 
         <main className="dashboard-content">
@@ -272,6 +315,25 @@ export default function App() {
           </section>
         </main>
       </div>
+
+      {/* Auth Modal for Switching Accounts or Logging in from Guest */}
+      {isAuthModalOpen && (
+        <div
+          className="modal-backdrop"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setIsAuthModalOpen(false);
+          }}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="auth-modal-wrapper">
+            <AuthView
+              onLogin={handleLogin}
+              onContinueAsGuest={() => setIsAuthModalOpen(false)}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Reusable Create / Edit Task Modal */}
       <TaskForm
